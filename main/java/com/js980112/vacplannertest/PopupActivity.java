@@ -44,8 +44,8 @@ public class PopupActivity extends Activity {
         et1=findViewById(R.id.et1);
         btnSubmit=findViewById(R.id.btnSubmit);
 
-
-
+        mHelper=new MyDBHelper(this);
+        db=mHelper.getWritableDatabase();
 
 
         //공유로 받아왔을경우
@@ -73,8 +73,7 @@ public class PopupActivity extends Activity {
             public void onClick(View view) {
                 String query="";
 
-                query = "insert into WishList values(" +
-                        "null, ?,?);";
+                query = "insert into WishList values(null, ?,?);";
                 // tvtest.setText(query + "");
                 SQLiteStatement p=db.compileStatement(query);
 

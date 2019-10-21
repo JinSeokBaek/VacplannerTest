@@ -93,12 +93,23 @@ public class SettingActivity extends AppCompatActivity {
             TextView tv=(TextView)view.findViewById(R.id.tv1);
             ImageView img=view.findViewById(R.id.w_img);
 
+            final int _id=cursor.getInt(cursor.getColumnIndex("_id"));
             String _title = cursor.getString(cursor.getColumnIndex("w_title"));
             Bitmap bitmap=getAppIcon(cursor.getBlob(cursor.getColumnIndex("w_img")));
             Log.d("testestsetsetset",_title+" "+bitmap.toString());
             tv.setText(_title);
             img.setImageBitmap(bitmap);
-
+            view.setLongClickable(true);
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    String query="delete from WishList where w_num = "+_id;
+                    db.execSQL(query);
+                    getCursor().requery();
+                    notifyDataSetChanged();
+                    return false;
+                }
+            });
         }
     }
     public class NotificationSet {
